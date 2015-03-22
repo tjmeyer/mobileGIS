@@ -13,7 +13,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        ${sessionScope['account']}
         <h1>Account: ${account.id}</h1>
         <hr/>
         <h2></h2>
@@ -21,7 +20,16 @@
             <p>${user.firstName}</p>
             <ul>
                 <c:forEach var="phone" items="${user.phones}">
-                    <li>${phone.name}</li>
+                    <li><a href="PhoneDetails?phone=${phone.id}">${phone.name}</a>
+                        <ul>
+                        <c:forEach var="location" items="${phone.locations}">
+                            <li>Latitude: ${location.lat}</li>
+                            <li>Longitude: ${location.lon}</li>
+                            <li>Altitude: ${location.alt}</li>
+                            <li><strong>Last Update: ${location.time}</strong></li>
+                        </c:forEach>
+                        </ul>
+                    </li>
                 </c:forEach>
             </ul>
         </c:forEach>

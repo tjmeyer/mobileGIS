@@ -34,19 +34,28 @@ public class CreateSession extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int accountId = Integer.parseInt(request.getParameter("account_id"));
-        request.getSession().setAttribute("account", accountId);
+            throws ServletException, IOException {           
+        String password = request.getParameter("password");
+        String username = request.getParameter("username");
+        
         try {
-            Account account = new Account(accountId);
-            request.setAttribute("account", account);
+            if(Authenticator.Authenticate(username, password))
+            {
+                request.getSession().setAttribute("validId", Authenticator.validAccountId);
+                Account sessionAccount = new Account(Authenticator.validAccountId);
+                request.getSession().setAttribute("account", sessionAccount);
+                request.getRequestDispatcher("accountHome.jsp").forward(request, response);
+            }
+            else
+            {
+                request.setAttribute("message", "Invalid Login");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CreateSession.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex)
-        {
-            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CreateSession.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher("accountHome.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

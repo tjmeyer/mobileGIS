@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -41,9 +43,9 @@ public class Phone {
             double alt      = rs.getDouble("altitude");
             Timestamp time  = rs.getTimestamp("time_stamp");
             Location newLocation = new Location(locationId, lat, lon, alt, time);
-            System.out.println("New phone created!");
             locations.add(newLocation);
         }
+        Collections.sort(locations, new CustomComparator());
     }
     
     public Boolean addLocation(Location newLocation)
@@ -110,5 +112,12 @@ public class Phone {
         return id;
     }
     
+    public class CustomComparator implements Comparator<Location> {
+        @Override
+        public int compare(Location o1, Location o2) {
+            return o1.getTime().compareTo(o2.getTime());
+        }
+        
+    }
     
 }
