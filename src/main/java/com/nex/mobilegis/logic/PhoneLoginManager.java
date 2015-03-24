@@ -60,7 +60,8 @@ public class PhoneLoginManager extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PhoneLoginManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.setContentType("text/html");
+        
+        response.setContentType(request.getCharacterEncoding());
         try (PrintWriter out = response.getWriter()){
             out.println(valid);
         }
@@ -103,6 +104,6 @@ public class PhoneLoginManager extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }// </editor-fold>z
 
 }
