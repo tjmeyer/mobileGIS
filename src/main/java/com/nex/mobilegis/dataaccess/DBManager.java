@@ -17,11 +17,11 @@ public class DBManager {
     
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost/nex";
-
+    static final String DB_URL = "jdbc:mysql://127.7.255.2:3306/java";
+    
     //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "kumite2";
+    static final String USER = "phoneAccess";
+    static final String PASS = "HDL8M9WfUUSnBHcT";
     
     // This is a singleton class
     static DBManager singletonInstance = null;
