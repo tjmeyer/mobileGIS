@@ -5,6 +5,7 @@
  */
 package com.nex.mobilegis.dataaccess;
 
+import com.nex.mobilegis.logic.Phone;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,6 +53,20 @@ public class DBManager {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         return rs;
+    }
+    
+    public void insertPhone(String newMac, String newName, Boolean newConn, int account_id, int user_id) throws SQLException
+    {
+        String query = "INSERT INTO phone (mac, name, connection, account_id, user_id) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, newMac);
+        statement.setString(2, newName);
+        statement.setBoolean(3, newConn);
+        statement.setInt(4, account_id);
+        statement.setInt(5, user_id);
+        statement.execute();
     }
     
     public void close()

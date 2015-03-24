@@ -5,8 +5,13 @@
  */
 package com.nex.mobilegis.logic;
 
+import com.nex.mobilegis.dataaccess.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +36,35 @@ public class PhoneLoginManager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String valid = "invalid";
+        String password = request.getParameter("password");
+        String username = request.getParameter("username");
+        String mac = request.getParameter("uuid");
+        try {
+            if (Authenticator.Authenticate(username, password)) {
+                String query = "SELECT * FROM phone WHERE mac = " + mac;
+                DBManager db = DBManager.getInstance();
+                ResultSet rs = db.execute(query);
+                if(!rs.next())
+                {
+                    ResultSet user = db.execute("SELECT * FROM user WHERE username = "+username);
+                    user.next();
+                    String firstName = user.getString("first_name");
+                    int accountId = user.getInt("account_id");
+                    int userId = user.getInt("id");
+                    db.insertPhone(mac, firstName+"'s Phone", Boolean.TRUE, accountId, userId);
+                }
+                valid = "valid";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneLoginManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PhoneLoginManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()){
+            out.println(valid);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
