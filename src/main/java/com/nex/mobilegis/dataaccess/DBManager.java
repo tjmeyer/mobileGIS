@@ -20,8 +20,8 @@ public class DBManager {
     static final String DB_URL = "jdbc:mysql://127.7.255.2:3306/java";
     
     //  Database credentials
-    static final String USER = "phoneAccess";
-    static final String PASS = "HDL8M9WfUUSnBHcT";
+    static final String USER = "adminzXPkWVV";
+    static final String PASS = "CnPzN5ksVQAE";
     
     // This is a singleton class
     static DBManager singletonInstance = null;
