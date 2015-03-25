@@ -24,5 +24,8 @@
                 <p style="text-align: center;"><input type="submit" value="Login"/></p>
             </form>
         </div>
+        <div class="content module">
+            <a href="newAccount.jsp">Create a New Account</a>
+        </div>
     </body>
 </html>
