@@ -45,7 +45,7 @@ public class PhoneLoginManager extends HttpServlet {
                 String query = "SELECT * FROM phone WHERE mac = " + mac;
                 DBManager db = DBManager.getInstance();
                 ResultSet rs = db.execute(query);
-                if(!rs.next())
+                while(rs.next())
                 {
                     ResultSet user = db.execute("SELECT first_name, id FROM user WHERE username = "+username);
                     user.next();
