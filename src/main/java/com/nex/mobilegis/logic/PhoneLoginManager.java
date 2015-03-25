@@ -45,12 +45,15 @@ public class PhoneLoginManager extends HttpServlet {
                 String query = "SELECT * FROM phone WHERE mac = " + mac;
                 DBManager db = DBManager.getInstance();
                 ResultSet rs = db.execute(query);
-                while(rs.next())
+                if(!rs.next())
                 {
-                    ResultSet user = db.execute("SELECT first_name, id FROM user WHERE username = "+username);
-                    String firstName = user.getString("first_name");
-                    int userId = user.getInt("id");
-                    db.insertPhone(mac, firstName+"'s Phone", Boolean.TRUE, Authenticator.validAccountId, userId);
+                    ResultSet user = db.execute("SELECT first_name, id FROM user WHERE username = '"+username+"'");
+                    while(user.next())
+                    {
+                        String firstName = user.getString("first_name");
+                        int userId = user.getInt("id");
+                        db.insertPhone(mac, firstName+"'s Phone", Boolean.TRUE, Authenticator.validAccountId, userId);
+                    }
                 }
                 valid = "valid";
             }
