@@ -48,7 +48,6 @@ public class PhoneLoginManager extends HttpServlet {
                 while(rs.next())
                 {
                     ResultSet user = db.execute("SELECT first_name, id FROM user WHERE username = "+username);
-                    user.next();
                     String firstName = user.getString("first_name");
                     int userId = user.getInt("id");
                     db.insertPhone(mac, firstName+"'s Phone", Boolean.TRUE, Authenticator.validAccountId, userId);
