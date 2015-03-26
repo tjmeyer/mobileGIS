@@ -35,8 +35,20 @@ public class CreateSession extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {           
-        String password = request.getParameter("password");
-        String username = request.getParameter("username");
+        String password;
+        String username;
+        
+        // determine if the request is coming from logic, or user
+        if (request.getParameter("password").isEmpty() || request.getParameter("username").isEmpty())
+        {
+            password = (String) request.getAttribute("password");
+            username = (String) request.getAttribute("username");
+        }
+        else
+        {
+            password = request.getParameter("password");
+            username = request.getParameter("username");
+        }
         
         try {
             if(Authenticator.Authenticate(username, password))

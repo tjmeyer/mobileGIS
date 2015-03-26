@@ -18,8 +18,9 @@
             First Name: <input type="text" name="firstName" value="${firstName}"/><br/>
             Last Name:  <input type="text" name="lastName" value="${lastName}"/><br/>
             Email: <input type="text" name="email" value="${email}"/><br/>
-            Password: <input type="password" name="password"/><br/>
-            Confirm Password: <input type="password" name="cPassword"/><br/>
+            Username: <input type="text" name="username" value="${username}"/><br/>
+            Password: <input type="password" name="password" value="${password}"/><br/>
+            Confirm Password: <input type="password" name="cPassword" value="${pPassword}"/><br/>
             <input type="submit" value="Create Account"/>
         </form>
     </body>

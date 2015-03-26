@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author M
  */
 public class DBManager {
-    // JDBC driver name and database URL
+////     JDBC driver name and database URL
 //    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 //    static final String DB_URL = "jdbc:mysql://localhost/nex";
 //    
@@ -30,7 +30,7 @@ public class DBManager {
     //  Database credentials
     static final String USER = "adminzXPkWVV";
     static final String PASS = "CnPzN5ksVQAE";
-//    
+    
     // This is a singleton class
     static DBManager singletonInstance = null;
     static Connection conn = null;
@@ -62,6 +62,18 @@ public class DBManager {
         return rs;
     }
     
+    public Boolean usernameExists(String username) throws SQLException
+    {
+        Boolean exists = true;
+        String query = "SELECT id FROM user WHERE username = \""+username+"\"";
+        ResultSet rs = execute(query);
+        if(!rs.next())
+        {
+            exists = false;
+        }
+        return exists;
+    }
+    
     public void insertPhone(String newMac, String newName, Boolean newConn, int account_id, int user_id) throws SQLException
     {
         String query = "INSERT INTO phone (mac, name, connection, account_id, user_id) "
@@ -74,6 +86,38 @@ public class DBManager {
         statement.setInt(4, account_id);
         statement.setInt(5, user_id);
         statement.execute();
+    }
+    
+    public void insertUser(String newFirstName, String newLastName, String newEmail, String newUsername, String newPassword, Boolean isMasterUser, int accountId) throws SQLException
+    {
+        System.out.println("Preparing statement... [INSERT INTO user VALUES ("
+                + newFirstName +", "+newLastName+", "+newEmail+", "+newUsername+", "+newPassword+")");
+        String query = "INSERT INTO user (first_name, last_name, email, username, password, master_user, account_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, newFirstName);
+        statement.setString(2, newLastName);
+        statement.setString(3, newEmail);
+        statement.setString(4, newUsername);
+        statement.setString(5, newPassword);
+        statement.setBoolean(6, isMasterUser);
+        statement.setInt(7, accountId);
+        statement.execute();
+    }
+    
+    public int insertAccount() throws SQLException
+    {
+        System.out.println("Preparing statement... [INSERT INTO account]");
+        String query = "INSERT INTO account VALUES ()";
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        ResultSet key = stmt.getGeneratedKeys();
+        int lastId = 0;
+        if(key.next())
+        {
+            lastId = key.getInt(1);
+        }
+        return lastId;
     }
     
     public void close()
