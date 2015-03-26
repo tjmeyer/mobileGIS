@@ -41,22 +41,5 @@
             <a href="addUser.jsp">Add User to Account</a><br/>
         </c:if>
         <a class="btn" href="Logout">Logout</a>
-        <hr/>
-        <c:if test="${!empty user.class.declaredFields}">
-            <h2>Object Attributes <em>&dollar;{user.name}</em></h2>
-            <ul>
-                <c:forEach var="attr" items="${user.class.declaredFields}">
-                    <c:catch><li><span>${attr.name}: </span>${user[attr.name]}</li></c:catch>
-                </c:forEach>
-            </ul>
-        </c:if>
-        <c:if test="${!empty user.class.declaredMethods}">
-            <h2>Object Methods<em>&lt;% user.getName() %&gt;</em></h2>
-            <ul>
-                <c:forEach var="attr" items="${user.class.declaredMethods}">
-                    <c:catch><li>${attr.name}</li></c:catch>
-                </c:forEach>
-            </ul>
-        </c:if>
     </body>
 </html>
