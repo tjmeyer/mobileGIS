@@ -5,8 +5,12 @@
  */
 package com.nex.mobilegis.logic;
 
+import com.nex.mobilegis.dataaccess.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +35,25 @@ public class PhoneLocationUpdater extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String mac = request.getParameter("uuid");
+        String lat = request.getParameter("lat");
+        String lon = request.getParameter("lon");
+        String alt = request.getParameter("alt");
+        String time = request.getParameter("time");
+        
+        System.out.println("Mac == " + mac);
+        
+        try {
+            DBManager db = DBManager.getInstance();
+            // newLat, newLon, newAlt, phoneMac, newTime
+            db.insertLocation(lat, lon, alt, mac, time);
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneLocationUpdater.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PhoneLocationUpdater.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
