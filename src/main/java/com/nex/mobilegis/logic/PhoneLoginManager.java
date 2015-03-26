@@ -42,7 +42,7 @@ public class PhoneLoginManager extends HttpServlet {
         String mac = request.getParameter("uuid");
         try {
             if (Authenticator.Authenticate(username, password) && !mac.isEmpty()) {
-                String query = "SELECT * FROM phone WHERE mac = " + mac;
+                String query = "SELECT * FROM phone WHERE mac = \"" + mac + "\"";
                 DBManager db = DBManager.getInstance();
                 ResultSet rs = db.execute(query);
                 if(!rs.next())
