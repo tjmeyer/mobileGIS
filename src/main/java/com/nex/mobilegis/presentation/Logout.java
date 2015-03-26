@@ -5,9 +5,12 @@
  */
 package com.nex.mobilegis.presentation;
 
-import com.nex.mobilegis.logic.*;
+import com.nex.mobilegis.dataaccess.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author M
  */
-@WebServlet(name = "PhoneDetails", urlPatterns = {"/PhoneDetails"})
-public class PhoneDetails extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,10 +35,16 @@ public class PhoneDetails extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("phoneId", request.getParameter("phone"));
-        request.getRequestDispatcher("phoneDetails.jsp").forward(request, response);
+        request.getSession().invalidate();
+        try {
+            DBManager.getInstance().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        response.sendRedirect("login.jsp");
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

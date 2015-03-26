@@ -1,0 +1,36 @@
+body {
+    background-image: url("../imgs/stripe_black.jpg");
+    background-repeat: repeat;
+}
+
+.module {
+    background-color: rgba(200,200,200,.7);
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h1{
+    text-align: center;
+}
+
+img.logo{
+    position: static;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo {
+    
+}
+
+.overlay {
+    position: absolute;
+    display: block;
+    top: 75px;
+    left: 160px;
+    text-align: center;
+}

@@ -55,7 +55,9 @@ public class CreateSession extends HttpServlet {
             {
                 request.getSession().setAttribute("validId", Authenticator.validAccountId);
                 Account sessionAccount = new Account(Authenticator.validAccountId);
+                User sessionUser = sessionAccount.getUser(username);
                 request.getSession().setAttribute("account", sessionAccount);
+                request.getSession().setAttribute("user", sessionUser);
                 request.getRequestDispatcher("accountHome.jsp").forward(request, response);
             }
             else

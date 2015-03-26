@@ -108,4 +108,17 @@ public class User{
     {
         return phones;
     }
+    
+    public Phone getPhone(int id)
+    {
+        Phone phone = null;
+        for(int i = 0; i < phones.size(); i++)
+        {
+            if(phones.get(i).getId() == id)
+            {
+                phone = phones.get(i);
+            }
+        }
+        return phone;
+    }
 }

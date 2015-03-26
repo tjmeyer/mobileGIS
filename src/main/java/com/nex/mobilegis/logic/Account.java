@@ -73,4 +73,17 @@ public class Account {
         return users;
     }
     
+    public User getUser(String username)
+    {
+        User user = null;
+        for(int i = 0; i < users.size(); i++)
+        {
+            if(users.get(i).getUsername().equals(username))
+            {
+                user = users.get(i);
+            }
+        }
+        return user;
+    }
+    
 }
