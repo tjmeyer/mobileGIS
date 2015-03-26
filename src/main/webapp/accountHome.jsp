@@ -33,7 +33,7 @@
             <c:forEach var="user" items="${account.users}">
                 <div class="row">
                     <div class="col-sm-5 module">
-                        <h2 style="text-align:center;"><a <c:if test="${user.isMaster()}">href="userDetails.jsp?id=${user.id}"</c:if>>${user.firstName} (${user.username})</a></h2>
+                        <h2 style="text-align:center;"><a <c:if test="${user.isMaster()}">href="UserDetails?username=${user.username}"</c:if>>${user.firstName} (${user.username})</a></h2>
                     </div>
                     <div class="col-sm-1"></div> <!--spacer-->
                     <div class="col-sm-6">
