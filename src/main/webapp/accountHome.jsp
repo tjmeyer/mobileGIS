@@ -13,33 +13,61 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <title>JSP Page</title>
+        <title>Account Home</title>
     </head>
     <body>
-        <h1>Account: ${account.id}</h1>
-        <hr/>
-        <h2></h2>
-        <c:forEach var="user" items="${account.users}">
-            <p>${user.firstName}</p>
-            <ul>
-                <c:forEach var="phone" items="${user.phones}">
-                    <li><a href="PhoneDetails?phone=${phone.id}">${phone.name}</a>
-                        <ul>
-                        <c:forEach var="location" items="${phone.locations}">
-                            <li>Latitude: ${location.lat}</li>
-                            <li>Longitude: ${location.lon}</li>
-                            <li>Altitude: ${location.alt}</li>
-                            <li><strong>Last Update: ${location.time}</strong></li>
+        <div class="container">
+            <div class="row module">
+                <h1>Welcome back ${user.firstName}!</h1>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-5">
+                    <h2 style="text-align: center; color: white;">Users</h2>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-6">
+                    <h2 style="text-align: center; color: white;">Phones</h2>
+                </div>
+            </div>
+            <c:forEach var="user" items="${account.users}">
+                <div class="row">
+                    <div class="col-sm-5 module">
+                        <h2 style="text-align:center;"><a <c:if test="${user.isMaster()}">href="userDetails.jsp?id=${user.id}"</c:if>>${user.firstName} (${user.username})</a></h2>
+                    </div>
+                    <div class="col-sm-1"></div> <!--spacer-->
+                    <div class="col-sm-6">
+                        <c:forEach var="phone" items="${user.phones}">
+                            <div class="module">
+                                <h3 style="text-align:center;"><a href="PhoneDetails?phone=${phone.id}">${phone.name}</a></h3>
+                                <hr/>
+                                <c:if test="${phone.recentLocation.time != null}">
+                                    <p style="text-align:center;">Latitude: ${phone.recentLocation.lat}</p>
+                                    <p style="text-align:center;">Longitude: ${phone.recentLocation.lon}</p>
+                                    <p style="text-align:center;">Time: ${phone.recentLocation.time}</p>
+                                </c:if>
+                                <c:if test="${phone.recentLocation.time == null}">
+                                    <p style="text-align:center;">Location not Available</p>
+                                </c:if>  
+                            </div>
                         </c:forEach>
-                        </ul>
-                    </li>
-                </c:forEach>
-            </ul>
-        </c:forEach>
-        <hr/>
-        <c:if test="${user.isMaster()}">
-            <a href="addUser.jsp">Add User to Account</a><br/>
-        </c:if>
-        <a class="btn" href="Logout">Logout</a>
+                    </div>
+                </div>
+            </c:forEach>
+            <hr/>
+            <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+                </div>
+                <c:if test="${user.isMaster()}">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="accountSettings.jsp">Settings <span class="glyphicon glyphicon-cog"></span></a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="addUser.jsp">Add User</a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
     </body>
 </html>

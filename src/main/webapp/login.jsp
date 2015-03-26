@@ -48,11 +48,13 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6 module" style="text-align: center;">
-                <a class="btn btn-lg btn-primary" href="newAccount.jsp">Create a New Account</a>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                    <div class="col-sm-6 module" style="text-align: center;">
+                        <a class="btn btn-lg btn-primary" href="newAccount.jsp">Create a New Account</a>
+                    </div>
+                <div class="col-sm-3"></div>
             </div>
-            <div class="col-sm-3"></div>
         </div>
     </body>
 </html>

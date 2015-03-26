@@ -107,6 +107,14 @@ public class Phone {
     public List<Location> getLocations() {
         return locations;
     }
+    
+    public Location getRecentLocation()
+    {
+        if (locations.isEmpty())
+            return null;
+        else
+            return locations.get(0);
+    }
 
     public int getId() {
         return id;
