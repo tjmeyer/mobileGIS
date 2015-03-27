@@ -113,7 +113,7 @@ public class Phone {
         if (locations.isEmpty())
             return null;
         else
-            return locations.get(0);
+            return locations.get(locations.size() - 1);
     }
 
     public int getId() {
