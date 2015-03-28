@@ -25,7 +25,7 @@
             <!-- for each user -->
             <c:forEach var="user" items="${account.users}">
                 <div class="row">
-                    <h2 style="color: #cccccc;">${user.firstName}'s Devices</h2>
+                    <h2>${user.firstName}'s Devices</h2>
                 </div>
                 <!--for each phone-->
                 <c:forEach var="phone" items="${user.phones}">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-sm-8">
                         <c:if test="${phone.recentLocation.time != null}">
-                            <h3 style="text-align: center;"><fmt:formatDate value="${phone.recentLocation.time}" type="both" timeStyle="long"/></h3>
+                            <h3 style="text-align: center;"><fmt:formatDate value="${phone.recentLocation.time}" type="both" timeStyle="long" timeZone="UTC-7"/></h3>
                             <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=${phone.recentLocation.lat},${phone.recentLocation.lon}&key=AIzaSyB-NY8Tr6mZJB9Wr_c2qlBptlAYF3vzx8o"></iframe>
                         </c:if>
                         <c:if test="${phone.recentLocation.time == null}">
