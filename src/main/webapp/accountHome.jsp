@@ -12,21 +12,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/main.css">
         <title>Account Home</title>
     </head>
     <body>
         <div class="container">            
-            <div class="row module">
                 <h1>Welcome back ${user.firstName}!</h1>
-            </div>
             <hr/>
             <!-- Start test-->
             <!-- for each user -->
             <c:forEach var="user" items="${account.users}">
                 <div class="row">
-                    <h2 style="color: #cccccc;">${user.firstName}</h2>
+                    <h2 style="color: #cccccc;">${user.firstName}'s Devices</h2>
                 </div>
                 <!--for each phone-->
                 <c:forEach var="phone" items="${user.phones}">
@@ -35,12 +34,13 @@
                         <h2 style="text-align: center;">${phone.name}</h2>
                             <div class="row" id="phoneMenu" style="text-align: center;"> <!--Phone menu bar start-->
                                 <c:if test="${phone.connection}">
-                                    <span class="glyphicon glyphicon-ok icon" style="color: green;" title="Phone Connected"> </span> 
+                                    <span class="glyphicon glyphicon-ok icon" style="color: green;" title="Device Connected"> </span> 
                                 </c:if>
                                 <c:if test="${!phone.connection}">
-                                    <span class="glyphicon glyphicon-remove icon" style="color: red;" title="Phone Disconnected"> </span> 
+                                    <span class="glyphicon glyphicon-remove icon" style="color: red;" title="Device Disconnected"> </span> 
                                 </c:if>
-                                    <a href="PhoneDetails?phone=${phone.id}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Phone Settings"> </a>
+                                    <a href="PhoneSettings?phone=${phone.id}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Device Settings"> </a>
+                                    <a href="PhoneHistory?phone=${phone.id}" class="glyphicon glyphicon-calendar icon" style="text-decoration: none;" title="Device History"></a>
                             </div>
                         <hr/>
                         <p>UUID: ${phone.mac}</p>

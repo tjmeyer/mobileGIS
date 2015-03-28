@@ -5,7 +5,6 @@
  */
 package com.nex.mobilegis.presentation;
 
-import com.nex.mobilegis.logic.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author M
  */
-@WebServlet(name = "PhoneDetails", urlPatterns = {"/PhoneDetails"})
-public class PhoneDetails extends HttpServlet {
+@WebServlet(name = "PhoneHistory", urlPatterns = {"/PhoneHistory"})
+public class PhoneHistory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,9 +32,8 @@ public class PhoneDetails extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("phoneId", request.getParameter("phone"));
-        request.getRequestDispatcher("phoneDetails.jsp").forward(request, response);
+        request.getRequestDispatcher("phoneHistory.jsp").forward(request, response);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
