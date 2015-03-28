@@ -21,8 +21,7 @@
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6 module">
                     <div class="logo">
-                        <img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/define_location.png" alt="..." width="50%" class="logo">
-                        <h2 class="overlay">GIS</h2>
+                        <img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/define_location.png" alt="..." width="50%" class="logo"/>
                     </div>
                     <div class="errorMessage">
                         <p>${message}</p>
