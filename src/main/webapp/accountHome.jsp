@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,45 +17,55 @@
         <title>Account Home</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container">            
             <div class="row module">
                 <h1>Welcome back ${user.firstName}!</h1>
             </div>
             <hr/>
-            <div class="row">
-                <div class="col-sm-5">
-                    <h2 style="text-align: center; color: white;">Users</h2>
-                </div>
-                <div class="col-sm-1"></div>
-                <div class="col-sm-6">
-                    <h2 style="text-align: center; color: white;">Phones</h2>
-                </div>
-            </div>
+            <!-- Start test-->
+            <!-- for each user -->
             <c:forEach var="user" items="${account.users}">
                 <div class="row">
-                    <div class="col-sm-5 module">
-                        <h2 style="text-align:center;"><a <c:if test="${user.isMaster()}">href="UserDetails?username=${user.username}"</c:if>>${user.firstName} (${user.username})</a></h2>
-                    </div>
-                    <div class="col-sm-1"></div> <!--spacer-->
-                    <div class="col-sm-6">
-                        <c:forEach var="phone" items="${user.phones}">
-                            <div class="module">
-                                <h3 style="text-align:center;"><a href="PhoneDetails?phone=${phone.id}">${phone.name}</a></h3>
-                                <hr/>
-                                <c:if test="${phone.recentLocation.time != null}">
-                                    <p style="text-align:center;">Latitude: ${phone.recentLocation.lat}</p>
-                                    <p style="text-align:center;">Longitude: ${phone.recentLocation.lon}</p>
-                                    <p style="text-align:center;">Time: ${phone.recentLocation.time}</p>
-                                </c:if>
-                                <c:if test="${phone.recentLocation.time == null}">
-                                    <p style="text-align:center;">Location not Available</p>
-                                </c:if>  
-                            </div>
-                        </c:forEach>
-                    </div>
+                    <h2 style="color: #cccccc;">${user.firstName}</h2>
                 </div>
+                <!--for each phone-->
+                <c:forEach var="phone" items="${user.phones}">
+                    <div class="row module">
+                    <div class="col-sm-4">
+                        <h2 style="text-align: center;">${phone.name}</h2>
+                            <div class="row" id="phoneMenu" style="text-align: center;"> <!--Phone menu bar start-->
+                                <c:if test="${phone.connection}">
+                                    <span class="glyphicon glyphicon-ok icon" style="color: green;" title="Phone Connected"> </span> 
+                                </c:if>
+                                <c:if test="${!phone.connection}">
+                                    <span class="glyphicon glyphicon-remove icon" style="color: red;" title="Phone Disconnected"> </span> 
+                                </c:if>
+                                    <a href="PhoneDetails?phone=${phone.id}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Phone Settings"> </a>
+                            </div>
+                        <hr/>
+                        <p>UUID: ${phone.mac}</p>
+                        <c:if test="${phone.recentLocation.time != null}">
+                            <p>Latitude: ${phone.recentLocation.lat}</p>
+                            <p>Longitude: ${phone.recentLocation.lon}</p>
+                        </c:if>
+                    </div>
+                    <div class="col-sm-8">
+                        <c:if test="${phone.recentLocation.time != null}">
+                            <h3 style="text-align: center;"><fmt:formatDate value="${phone.recentLocation.time}" type="both" timeStyle="long"/></h3>
+                            <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=${phone.recentLocation.lat},${phone.recentLocation.lon}&key=AIzaSyB-NY8Tr6mZJB9Wr_c2qlBptlAYF3vzx8o"></iframe>
+                        </c:if>
+                        <c:if test="${phone.recentLocation.time == null}">
+                            <h3 style="text-align: center;">Location Unavailable</h3>
+                        </c:if>
+                    </div>
+                </div> 
+                </c:forEach>
+                
             </c:forEach>
+            
+            <!-- end test-->
             <hr/>
+            <!-- Bottom nav bar -->
             <div class="btn-group btn-group-justified" role="group">
                 <div class="btn-group" role="group">
                     <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
