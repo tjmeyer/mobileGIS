@@ -88,7 +88,7 @@ public class DBManager {
         Double dLon = Double.parseDouble(newLon);
         Double dAlt = Double.parseDouble(newAlt);
         Timestamp tTime = new Timestamp(Long.parseLong(newTime));
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("MDT"));
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("PST"));
         query = "INSERT INTO location (latitude, longitude, altitude, phone_id, time_stamp) "+
                 "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = conn.prepareStatement(query);
