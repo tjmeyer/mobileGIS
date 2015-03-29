@@ -6,6 +6,8 @@
 package com.nex.mobilegis.dataaccess;
 
 import java.sql.*;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -86,7 +88,7 @@ public class DBManager {
         Double dLon = Double.parseDouble(newLon);
         Double dAlt = Double.parseDouble(newAlt);
         Timestamp tTime = new Timestamp(Long.parseLong(newTime));
-        
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("MDT"));
         query = "INSERT INTO location (latitude, longitude, altitude, phone_id, time_stamp) "+
                 "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = conn.prepareStatement(query);
@@ -94,7 +96,7 @@ public class DBManager {
         statement.setDouble(2, dLon);
         statement.setDouble(3, dAlt);
         statement.setInt(4, phoneId);
-        statement.setTimestamp(5, tTime);
+        statement.setTimestamp(5, tTime, cal);
         statement.execute();
     }
     
