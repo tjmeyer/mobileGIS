@@ -15,15 +15,18 @@
         <title>History</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        
-        
-        <div class="btn-group btn-group-justified" role="group"> <!-- Bottom Nav-->
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary btn-lg" href="accountHome.jsp"><span class="glyphicon glyphicon-arrow-left"></span> Return to Summary</a>
-            </div>
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+        <div class="container">
+            <h1>Hello World!</h1>
+
+            <div class="row sticky">
+                <div class="btn-group btn-group-justified" role="group"> <!-- Bottom Nav-->
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="accountHome.jsp"><span class="glyphicon glyphicon-arrow-left"></span> Return to Summary</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

@@ -65,19 +65,22 @@
             
             <!-- end test-->
             <hr/>
+            <br/>
             <!-- Bottom nav bar -->
-            <div class="btn-group btn-group-justified" role="group">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+            <div class="row sticky">
+                <div class="btn-group btn-group-justified" role="group">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+                    </div>
+                    <c:if test="${user.isMaster()}">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary btn-lg" href="accountSettings.jsp">Settings <span class="glyphicon glyphicon-cog"></span></a>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary btn-lg" href="addUser.jsp">Add User</a>
+                        </div>
+                    </c:if>
                 </div>
-                <c:if test="${user.isMaster()}">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary btn-lg" href="accountSettings.jsp">Settings <span class="glyphicon glyphicon-cog"></span></a>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary btn-lg" href="addUser.jsp">Add User</a>
-                    </div>
-                </c:if>
             </div>
         </div>
     </body>

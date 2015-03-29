@@ -50,3 +50,10 @@ img.logo{
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.sticky{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: available;
+}

@@ -16,15 +16,19 @@
         <title>${phone.name}'s  Settings</title>
     </head>
     <body>
-        <c:set var="phone" scope="page" value="${user.getPhone(phoneId)}"/>
-        <h1>${phone.name}</h1>
-        <hr/>
-        <div class="btn-group btn-group-justified" role="group"> <!-- Bottom Nav-->
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary btn-lg" href="accountHome.jsp"><span class="glyphicon glyphicon-arrow-left"></span> Return to Summary</a>
-            </div>
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+        <div class="container">
+            <c:set var="phone" scope="page" value="${user.getPhone(phoneId)}"/>
+            <h1>${phone.name}</h1>
+            <hr/>
+            <div class="row sticky">
+                <div class="btn-group btn-group-justified" role="group"> <!-- Bottom Nav-->
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="accountHome.jsp"><span class="glyphicon glyphicon-arrow-left"></span> Return to Summary</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary btn-lg" href="Logout">Logout <span class="glyphicon glyphicon-log-out"></span></a>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
