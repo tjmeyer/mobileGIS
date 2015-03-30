@@ -99,7 +99,7 @@ public class CreateAccount extends HttpServlet {
                     db = DBManager.getInstance();
                     if(db.usernameExists(username))
                     {
-                        message += "This username is already in use!";
+                        message += "This username is already in use!<br/>";
                     }   
                 } catch (SQLException ex) {
                     Logger.getLogger(CreateAccount.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,15 +135,25 @@ public class CreateAccount extends HttpServlet {
         if(message.equals(""))
         {
             try {
-                // create new account with this user as admin
                 DBManager db = DBManager.getInstance();
-                int accountId = db.insertAccount();
-                System.out.println("accountID == " + accountId);
-                // newFirstName, newLastName, newEmail, newUsername, newPassword, isMasterUser, accountId
-                db.insertUser(firstName, lastName, email, username, password, true, accountId);
+                // create new account with this user
                 
-                // upon successful creation, log user in
-                request.getRequestDispatcher("CreateSession").forward(request, response);
+                if (request.getRequestURI().contains("newAccount"))
+                {
+                    int accountId = db.insertAccount();
+                    // newFirstName, newLastName, newEmail, newUsername, newPassword, isMasterUser, accountId
+                    db.insertUser(firstName, lastName, email, username, password, true, accountId);
+                    // upon successful creation, log user in
+                    request.getRequestDispatcher("CreateSession").forward(request, response);
+                }
+                else
+                {
+                    System.out.println("Account id = " + Authenticator.validAccountId);
+                    db.insertUser(firstName, lastName, email, username, password, false, Authenticator.validAccountId);
+                    String success = "User Created Successfully";
+                    request.setAttribute("success", success);
+                    request.getRequestDispatcher("addUser.jsp").forward(request, response);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(CreateAccount.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -153,7 +163,10 @@ public class CreateAccount extends HttpServlet {
         }
         else
         {
-            request.getRequestDispatcher("newAccount.jsp").forward(request, response);
+            if (request.getRequestURI().contains("newAccount"))
+                request.getRequestDispatcher("newAccount.jsp").forward(request, response);
+            else
+                request.getRequestDispatcher("addUser.jsp").forward(request, response);
         }
     }
 

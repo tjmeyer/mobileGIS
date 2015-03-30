@@ -29,7 +29,6 @@ public class Phone {
     {
         this.id         = newId;
         this.mac        = newMac;
-        this.connection = newConnection;
         this.name       = newName;
         DBManager db = DBManager.getInstance();
         String query = "SELECT * FROM location WHERE phone_id = " + newId;
@@ -45,7 +44,11 @@ public class Phone {
             Location newLocation = new Location(locationId, lat, lon, alt, time);
             locations.add(newLocation);
         }
-        Collections.sort(locations, new CustomComparator());
+        if(!locations.isEmpty())
+        {
+            this.connection = System.currentTimeMillis() <= (locations.get(locations.size()-1).getTime().getTime() + 1800000);
+            Collections.sort(locations, new CustomComparator());
+        }
     }
     
     public Boolean addLocation(Location newLocation)

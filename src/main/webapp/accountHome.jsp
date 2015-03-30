@@ -47,6 +47,9 @@
                         <c:if test="${phone.recentLocation.time != null}">
                             <p>Latitude: ${phone.recentLocation.lat}</p>
                             <p>Longitude: ${phone.recentLocation.lon}</p>
+                            <c:if test="${phone.recentLocation.alt != 0}">
+                                <p>Altitude: ${phone.recentLocation.alt}</p>
+                            </c:if>
                         </c:if>
                     </div>
                     <div class="col-sm-8">

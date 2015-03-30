@@ -28,19 +28,19 @@
                 <form action="CreateAccount" method="POST">
                     <div class="col-sm-6">
                         <label>First Name</label>
-                        <input type="text" class="form-control" name="firstName" value="${firstName}"/><br/>
+                        <input type="text" class="form-control" name="firstName" value="${firstName}" tabindex="1"/><br/>
                         <label>Email</label>
-                        <input type="text" class="form-control" name="email" value="${email}"/><br/>
+                        <input type="text" class="form-control" name="email" value="${email}" tabindex="3"/><br/>
                         <label>Password</label>
-                        <input type="password" class="form-control" name="password" value="${password}"/><br/>
+                        <input type="password" class="form-control" name="password" value="${password}" tabindex="5"/><br/>
                     </div>
                     <div class="col-sm-6">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" name="lastName" value="${lastName}"/><br/>
+                        <input type="text" class="form-control" name="lastName" value="${lastName}" tabindex="2"/><br/>
                         <label>Username</label>
-                        <input type="text" class="form-control" name="username" value="${username}"/><br/>
+                        <input type="text" class="form-control" name="username" value="${username}" tabindex="4"/><br/>
                         <label>Confirm Password</label>
-                        <input type="password" class="form-control" name="cPassword" value="${pPassword}"/><br/>
+                        <input type="password" class="form-control" name="cPassword" value="${pPassword}" tabindex="6"/><br/>
                     </div>
                     <div style="text-align: center;">
                         <input type="submit" class="btn btn-lg btn-primary" value="Create Account"/>
