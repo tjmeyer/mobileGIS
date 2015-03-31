@@ -3,14 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nex.mobilegis.presentation;
+package com.nex.mobilegis.logic;
 
-import com.nex.mobilegis.logic.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author M
  */
-@WebServlet(name = "CreateSession", urlPatterns = {"/CreateSession"})
-public class CreateSession extends HttpServlet {
+@WebServlet(name = "UpdatePhone", urlPatterns = {"/UpdatePhone"})
+public class UpdatePhone extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,42 +30,19 @@ public class CreateSession extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {           
-        String password;
-        String username;
-        
-        // determine if the request is coming from logic, or user
-        if (Authenticator.valid)
-        {
-            password = Authenticator.pass;
-            username = Authenticator.user;
-        }
-        else
-        {
-            password = request.getParameter("password");
-            username = request.getParameter("username");
-        }
-        try {
-            if(Authenticator.Authenticate(username, password))
-            {
-                request.getSession().setAttribute("validId", Authenticator.validAccountId);
-                Account sessionAccount = new Account(Authenticator.validAccountId);
-                User sessionUser = sessionAccount.getUser(username);
-                System.out.println("Creating account session");
-                request.getSession().setAttribute("account", sessionAccount);
-                System.out.println("Creating user session");
-                request.getSession().setAttribute("user", sessionUser);
-                request.getRequestDispatcher("accountHome.jsp").forward(request, response);
-            }
-            else
-            {
-                request.setAttribute("message", "Invalid Login");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateSession.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateSession.class.getName()).log(Level.SEVERE, null, ex);
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdatePhone</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdatePhone at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

@@ -43,6 +43,7 @@ public class Account {
             userLastName, userEmail, userUsername, userMaster);
             users.add(newUser);            
         }
+        Authenticator.account = this;
     }
     
     public Boolean setUser(List<User> newUsers)

@@ -125,4 +125,23 @@ public class User{
         }
         return phone;
     }
+    
+    public Boolean deletePhone(int id) throws SQLException, ClassNotFoundException
+    {
+        Boolean success = false;
+        for(int i = 0; i < phones.size (); i++)
+        {
+            if(phones.get(i).getId() == id)
+            {
+                phones.remove(i);
+                DBManager db = DBManager.getInstance();
+                //remove locations of phone
+                phones.get(i).deleteLocations(phones.get(i).getLocations());
+                String query = "DELETE FROM phone WHERE id = "+id;
+                db.executeUpdate(query);
+                success = true;
+            }
+        }
+        return success;
+    }
 }

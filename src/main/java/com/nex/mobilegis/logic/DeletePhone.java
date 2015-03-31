@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nex.mobilegis.presentation;
+package com.nex.mobilegis.logic;
 
-import com.nex.mobilegis.logic.*;
+import com.nex.mobilegis.dataaccess.DBManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author M
  */
-@WebServlet(name = "CreateSession", urlPatterns = {"/CreateSession"})
-public class CreateSession extends HttpServlet {
+@WebServlet(name = "DeletePhone", urlPatterns = {"/DeletePhone"})
+public class DeletePhone extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,45 +31,24 @@ public class CreateSession extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {           
-        String password;
-        String username;
-        
-        // determine if the request is coming from logic, or user
-        if (Authenticator.valid)
-        {
-            password = Authenticator.pass;
-            username = Authenticator.user;
-        }
-        else
-        {
-            password = request.getParameter("password");
-            username = request.getParameter("username");
-        }
-        try {
-            if(Authenticator.Authenticate(username, password))
-            {
-                request.getSession().setAttribute("validId", Authenticator.validAccountId);
-                Account sessionAccount = new Account(Authenticator.validAccountId);
-                User sessionUser = sessionAccount.getUser(username);
-                System.out.println("Creating account session");
-                request.getSession().setAttribute("account", sessionAccount);
-                System.out.println("Creating user session");
-                request.getSession().setAttribute("user", sessionUser);
-                request.getRequestDispatcher("accountHome.jsp").forward(request, response);
-            }
-            else
-            {
-                request.setAttribute("message", "Invalid Login");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateSession.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateSession.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
+        String id = request.getParameter("id");
+        //delete from db
+        DBManager db = DBManager.getInstance();
+        // delete locations
+        String query = "DELETE FROM location WHERE phone_id = "+id;
+        db.executeUpdate(query);
+        // delete phone
+        query = "DELETE FROM phone WHERE id = "+id;
+        db.executeUpdate(query);
+        // recreate session
+        request.setAttribute("password", Authenticator.pass);
+        request.setAttribute("username", Authenticator.user);
+        request.getRequestDispatcher("CreateSession").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,7 +63,13 @@ public class CreateSession extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DeletePhone.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DeletePhone.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -99,7 +83,13 @@ public class CreateSession extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DeletePhone.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DeletePhone.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

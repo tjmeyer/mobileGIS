@@ -22,7 +22,7 @@ public class DBManager {
 //    
 //    //  Database credentials
 //    static final String USER = "root";
-//    static final String PASS = "kumite2";
+//    static final String PASS = "";
     
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -61,6 +61,13 @@ public class DBManager {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         return rs;
+    }
+    
+    public void executeUpdate(String query) throws SQLException
+    {
+        System.out.println("Creating update statement...["+query+"]");
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(query);
     }
     
     public Boolean usernameExists(String username) throws SQLException

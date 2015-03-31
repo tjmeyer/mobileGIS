@@ -14,8 +14,11 @@ import java.sql.SQLException;
  * @author M
  */
 public class Authenticator {
-    public static Boolean valid;
+    public static Boolean valid = false;
     public static int validAccountId;
+    public static String user = null;
+    public static String pass = null;
+    public static Account account = null;
     
     public static Boolean Authenticate(String username, String password) throws SQLException, ClassNotFoundException{
         DBManager db = DBManager.getInstance();
@@ -30,12 +33,21 @@ public class Authenticator {
         {
             valid = false;
         }
-        
+
         if(valid)
         {
+            user = username;
+            pass = password;
             validAccountId = rs.getInt("account_id");
         }
-        
+
         return valid;
+    }
+    
+    public static void invalidate()
+    {
+        valid = false;
+        user = null;
+        pass = null;
     }
 }

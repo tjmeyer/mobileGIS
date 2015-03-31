@@ -5,6 +5,9 @@
  */
 package com.nex.mobilegis.presentation;
 
+import com.nex.mobilegis.logic.Account;
+import com.nex.mobilegis.logic.Phone;
+import com.nex.mobilegis.logic.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,7 +34,8 @@ public class PhoneSettings extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("phoneId", request.getParameter("phone"));
+        int id = Integer.parseInt(request.getParameter("phone"));
+        request.setAttribute("phoneId", id);
         request.getRequestDispatcher("phoneSettings.jsp").forward(request, response);
     }
 

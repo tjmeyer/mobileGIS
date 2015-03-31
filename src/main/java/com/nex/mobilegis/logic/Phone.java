@@ -118,6 +118,11 @@ public class Phone {
         else
             return locations.get(locations.size() - 1);
     }
+    
+    public Boolean deleteLocations(List<Location> delete)
+    {
+        return locations.removeAll(delete);
+    }
 
     public int getId() {
         return id;
