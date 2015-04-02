@@ -5,8 +5,13 @@
  */
 package com.nex.mobilegis.presentation;
 
+import com.nex.mobilegis.logic.Authenticator;
+import com.nex.mobilegis.logic.Phone;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +36,17 @@ public class PhoneHistory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("phoneId", request.getParameter("phone"));
+        Phone phone = Authenticator.account.getUser(request.getParameter("user")).getPhone(Integer.parseInt(request.getParameter("phone")));
+        request.setAttribute("phone", phone);
+        GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone("MDT"));
+        cal.setTime(phone.getFirstLocation().getTime());
+        
+        // set start times
+        request.setAttribute("sDay", cal.get(Calendar.DAY_OF_MONTH));
+        request.setAttribute("sMonth", cal.get(Calendar.MONTH));
+        request.setAttribute("sYear", cal.get(Calendar.YEAR));
         request.getRequestDispatcher("phoneHistory.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

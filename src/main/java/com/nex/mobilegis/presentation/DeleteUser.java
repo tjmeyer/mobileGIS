@@ -5,12 +5,12 @@
  */
 package com.nex.mobilegis.presentation;
 
-import com.nex.mobilegis.logic.Account;
 import com.nex.mobilegis.logic.Authenticator;
-import com.nex.mobilegis.logic.Phone;
-import com.nex.mobilegis.logic.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author M
  */
-@WebServlet(name = "PhoneSettings", urlPatterns = {"/PhoneSettings"})
-public class PhoneSettings extends HttpServlet {
+@WebServlet(name = "DeleteUser", urlPatterns = {"/DeleteUser"})
+public class DeleteUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +35,14 @@ public class PhoneSettings extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Phone phone = Authenticator.account.getUser(request.getParameter("user")).getPhone(Integer.parseInt(request.getParameter("phone")));
-        request.setAttribute("phone", phone);
-        request.setAttribute("userId", request.getParameter("userid"));
-        request.getRequestDispatcher("phoneSettings.jsp").forward(request, response);
+        try {
+            Authenticator.account.deleteUser(request.getParameter("user"));
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DeleteUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.getRequestDispatcher("CreateSession").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

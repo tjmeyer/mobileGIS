@@ -16,8 +16,25 @@
     </head>
     <body>
         <div class="container">
-            <h1>Hello World!</h1>
-
+            <h1>${phone.name}'s History</h1>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-5 module">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Start Time:</label>
+                            <input class="form-control" type="datetime" name="startTime"/>
+                            <label>End Time:</label>
+                            <input class="form-control" type="datetime" name="endTime"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-6">
+                    ${map}
+                </div>
+            </div>
+            
             <div class="row sticky">
                 <div class="btn-group btn-group-justified" role="group"> <!-- Bottom Nav-->
                     <div class="btn-group" role="group">

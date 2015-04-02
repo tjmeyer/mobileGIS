@@ -119,9 +119,19 @@ public class Phone {
             return locations.get(locations.size() - 1);
     }
     
-    public Boolean deleteLocations(List<Location> delete)
+    public Location getFirstLocation()
     {
-        return locations.removeAll(delete);
+        if (locations.isEmpty())
+            return null;
+        else
+            return locations.get(0);
+    }
+    
+    public void deleteLocations() throws SQLException, ClassNotFoundException
+    {
+        DBManager db = DBManager.getInstance();
+        String query = "DELETE FROM location WHERE phone_id = "+id;
+        db.executeUpdate(query);
     }
 
     public int getId() {

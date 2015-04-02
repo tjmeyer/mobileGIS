@@ -23,12 +23,12 @@
             <hr/>
             <!-- Start test-->
             <!-- for each user -->
-            <c:forEach var="user" items="${account.users}">
+            <c:forEach var="pageUser" items="${account.users}">
                 <div class="row">
-                    <h2>${user.firstName}'s Devices</h2>
+                    <h2>${pageUser.firstName}'s Devices</h2>
                 </div>
                 <!--for each phone-->
-                <c:forEach var="phone" items="${user.phones}">
+                <c:forEach var="phone" items="${pageUser.phones}">
                     <div class="row module">
                     <div class="col-sm-4">
                         <h2 style="text-align: center;">${phone.name}</h2>
@@ -39,8 +39,10 @@
                                 <c:if test="${!phone.connection}">
                                     <span class="glyphicon glyphicon-remove icon" style="color: red;" title="Device Disconnected"> </span> 
                                 </c:if>
-                                    <a href="PhoneSettings?phone=${phone.id}&user=${user.username}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Device Settings"> </a>
-                                    <a href="PhoneHistory?phone=${phone.id}" class="glyphicon glyphicon-calendar icon" style="text-decoration: none;" title="Device History"></a>
+                                <c:if test="${user.isMaster() || pageUser.id == user.id}">
+                                    <a href="PhoneSettings?phone=${phone.id}&user=${pageUser.username}&userid=${pageUser.id}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Device Settings"> </a>
+                                </c:if>
+                                <a href="PhoneHistory?phone=${phone.id}&user=${pageUser.username}" class="glyphicon glyphicon-calendar icon" style="text-decoration: none;" title="Device History"></a>
                             </div>
                         <hr/>
                         <p>UUID: ${phone.mac}</p>
@@ -55,7 +57,7 @@
                     <div class="col-sm-8">
                         <c:if test="${phone.recentLocation.time != null}">
                             <h3 style="text-align: center;"><fmt:formatDate value="${phone.recentLocation.time}" timeZone="MDT" type="both" timeStyle="long"/></h3>
-                            <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=${phone.recentLocation.lat},${phone.recentLocation.lon}&key=AIzaSyB-NY8Tr6mZJB9Wr_c2qlBptlAYF3vzx8o"></iframe>
+                            <iframe width="100%" height="450" frameborder="1" style="border:2" src="https://www.google.com/maps/embed/v1/place?q=${phone.recentLocation.lat},${phone.recentLocation.lon}&key=AIzaSyB-NY8Tr6mZJB9Wr_c2qlBptlAYF3vzx8o"></iframe>
                         </c:if>
                         <c:if test="${phone.recentLocation.time == null}">
                             <h3 style="text-align: center;">Location Unavailable</h3>

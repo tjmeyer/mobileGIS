@@ -30,7 +30,7 @@
                                 <h3>${accountUser.firstName} ${accountUser.lastName}</h3>
                             </div>
                             <div style="text-align: center;" class="col-sm-6">
-                                <h3><a href="DeleteUser?id=${accountUser.id}" class="btn btn-md btn-danger" onclick="return confirm('Are you sure you want to delete ${accountUser.firstName}?\nAll of this user\'s phones will also be deleted.');"><span class="glyphicon glyphicon-remove"></span> Remove</a></h3>
+                                <h3><a href="DeleteUser?user=${accountUser.username}" class="btn btn-md btn-danger" onclick="return confirm('Are you sure you want to delete ${accountUser.firstName}?\nAll of this user\'s phones will also be deleted.');"><span class="glyphicon glyphicon-remove"></span> Remove</a></h3>
                             </div>
                         </div>
                         <br/>

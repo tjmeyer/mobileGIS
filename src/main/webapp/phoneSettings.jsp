@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <c:set var="phone" scope="page" value="${account.getUser(username).getPhone(phoneId)}"/>
+        
         <title>${phone.name}'s  Settings</title>
     </head>
     <body>
@@ -35,7 +35,7 @@
                         <label>Phone Owner</label>
                         <select class="form-control" name="userId">
                             <c:forEach var="phoneUser" items="${account.users}">
-                                <option value="${phoneUser.id}" <c:if test="${phoneUser.id == user.id}">selected</c:if>>${phoneUser.firstName}</option>
+                                <option value="${phoneUser.id}" <c:if test="${phoneUser.id == userId}">selected</c:if>>${phoneUser.firstName}</option>
                             </c:forEach>
                         </select>
                     </div>

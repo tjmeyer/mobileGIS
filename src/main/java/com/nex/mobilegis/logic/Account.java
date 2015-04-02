@@ -101,4 +101,12 @@ public class Account {
             return null;
         }
     }
+    
+    public void deleteUser(String username) throws SQLException, ClassNotFoundException
+    {
+        DBManager db = DBManager.getInstance();
+        getUser(username).deletePhones();
+        String query = "DELETE FROM user WHERE username = \""+username+"\"";
+        db.executeUpdate(query);
+    }
 }

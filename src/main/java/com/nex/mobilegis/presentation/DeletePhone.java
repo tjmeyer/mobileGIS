@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nex.mobilegis.logic;
+package com.nex.mobilegis.presentation;
 
 import com.nex.mobilegis.dataaccess.DBManager;
+import com.nex.mobilegis.logic.Authenticator;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
