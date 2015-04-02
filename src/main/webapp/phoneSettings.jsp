@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <c:set var="phone" scope="page" value="${user.getPhone(phoneId)}"/>
+        <c:set var="phone" scope="page" value="${account.getUser().getPhone(phoneId)}"/>
         <title>${phone.name}'s  Settings</title>
     </head>
     <body>
@@ -27,18 +27,20 @@
                     <span class="glyphicon glyphicon-remove" style="color:red;"></span>
                 </c:if>
             </h1>
+            <h2 style="color:green;">${message}</h2>
             <hr/>
             <form action="UpdatePhone" method="POST">
                 <div class="row">
                     <div class="col-sm-5 module">
                         <label>Phone Owner</label>
-                        <select class="form-control">
+                        <select class="form-control" name="userId">
                             <c:forEach var="phoneUser" items="${account.users}">
-                                <option value="${phoneUser.username}" <c:if test="${phoneUser.id == user.id}">selected</c:if>>${phoneUser.firstName}</option>
+                                <option value="${phoneUser.id}" <c:if test="${phoneUser.id == user.id}">selected</c:if>>${phoneUser.firstName}</option>
                             </c:forEach>
                         </select>
                     </div>
                     <div class="col-sm-1"><!--SPACER--></div>
+                    <input type="hidden" name="phoneId" value="${phone.id}"/>
                     <div class="col-sm-6 module">
                         <label>Phone Name</label>
                         <input type="text" class="form-control" name="phoneName" value="${phone.name}"/>
