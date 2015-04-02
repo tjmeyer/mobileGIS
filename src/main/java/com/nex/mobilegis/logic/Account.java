@@ -87,4 +87,18 @@ public class Account {
         return user;
     }
     
+    public User getUser(int id) throws SQLException, ClassNotFoundException
+    {
+        DBManager db = DBManager.getInstance();
+        String query = "SELECT username FROM user WHERE id = "+id;
+        ResultSet rs = db.execute(query);
+        if(rs.next())
+        {
+            return getUser(rs.getString("username"));
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

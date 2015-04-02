@@ -34,8 +34,10 @@ public class PhoneSettings extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("phone"));
-        request.setAttribute("phoneId", id);
+        String phoneId = request.getParameter("phone");
+        String user = request.getParameter("user");
+        request.setAttribute("phoneId", phoneId);
+        request.setAttribute("username", user);
         request.getRequestDispatcher("phoneSettings.jsp").forward(request, response);
     }
 

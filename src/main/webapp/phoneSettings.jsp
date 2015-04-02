@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <c:set var="phone" scope="page" value="${account.getUser().getPhone(phoneId)}"/>
+        <c:set var="phone" scope="page" value="${account.getUser(username).getPhone(phoneId)}"/>
         <title>${phone.name}'s  Settings</title>
     </head>
     <body>

@@ -39,7 +39,7 @@
                                 <c:if test="${!phone.connection}">
                                     <span class="glyphicon glyphicon-remove icon" style="color: red;" title="Device Disconnected"> </span> 
                                 </c:if>
-                                    <a href="PhoneSettings?phone=${phone.id}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Device Settings"> </a>
+                                    <a href="PhoneSettings?phone=${phone.id}&user=${user.username}" class="glyphicon glyphicon-cog icon" style="text-decoration: none;" title="Device Settings"> </a>
                                     <a href="PhoneHistory?phone=${phone.id}" class="glyphicon glyphicon-calendar icon" style="text-decoration: none;" title="Device History"></a>
                             </div>
                         <hr/>
