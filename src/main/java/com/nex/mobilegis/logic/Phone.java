@@ -46,7 +46,7 @@ public class Phone {
         }
         if(!locations.isEmpty())
         {
-            this.connection = System.currentTimeMillis() <= (locations.get(locations.size()-1).getTime().getTime() + 1800000);
+            this.connection = System.currentTimeMillis() <= (locations.get(locations.size()-1).getTime().getTime() + 1850000);
             Collections.sort(locations, new CustomComparator());
         }
     }
