@@ -6,6 +6,7 @@
 package com.nex.mobilegis.presentation;
 
 import com.nex.mobilegis.dataaccess.DBManager;
+import com.nex.mobilegis.logic.Authenticator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -36,11 +37,10 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getSession().invalidate();
+        Authenticator.invalidate();
         try {
             DBManager.getInstance().close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
         }
         response.sendRedirect("login.jsp");
