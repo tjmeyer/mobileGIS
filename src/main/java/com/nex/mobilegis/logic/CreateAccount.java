@@ -137,8 +137,8 @@ public class CreateAccount extends HttpServlet {
             try {
                 DBManager db = DBManager.getInstance();
                 // create new account with this user
-                
-                if (request.getRequestURI().contains("newAccount"))
+                System.out.println("requestParamter on creation = "+request.getParameter("addUser"));
+                if (request.getParameter("addUser") == null)
                 {
                     int accountId = db.insertAccount();
                     // newFirstName, newLastName, newEmail, newUsername, newPassword, isMasterUser, accountId
@@ -151,8 +151,7 @@ public class CreateAccount extends HttpServlet {
                     System.out.println("Account id = " + Authenticator.validAccountId);
                     db.insertUser(firstName, lastName, email, username, password, false, Authenticator.validAccountId);
                     String success = "User Created Successfully";
-                    request.setAttribute("success", success);
-                    request.getRequestDispatcher("addUser.jsp").forward(request, response);
+                    request.getRequestDispatcher("CreateSession").forward(request, response);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(CreateAccount.class.getName()).log(Level.SEVERE, null, ex);
@@ -163,7 +162,7 @@ public class CreateAccount extends HttpServlet {
         }
         else
         {
-            if (request.getRequestURI().contains("newAccount"))
+            if (request.getParameter("addUser") == null)
                 request.getRequestDispatcher("newAccount.jsp").forward(request, response);
             else
                 request.getRequestDispatcher("addUser.jsp").forward(request, response);

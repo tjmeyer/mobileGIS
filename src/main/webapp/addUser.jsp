@@ -47,6 +47,7 @@
                         <label>Confirm Password</label>
                         <input type="password" class="form-control" name="cPassword" value="${pPassword}" tabindex="6"/><br/>
                     </div>
+                    <input type="hidden" value="true" name="addUser"/>
                     <div style="text-align: center;">
                         <input type="submit" class="btn btn-lg btn-primary" value="Create User"/>
                     </div>
