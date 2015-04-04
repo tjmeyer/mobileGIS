@@ -21,7 +21,7 @@
             <h1>${user.firstName}'s Account Settings</h1>
             <hr/>
             <div class="row">
-                <div class="col-sm-5 module">
+                <div class="col-sm-12 module">
                     <h2>Users On Account</h2>
                     <hr/>
                     <c:forEach var="accountUser" items="${account.users}">
@@ -35,10 +35,6 @@
                         </div>
                         <br/>
                     </c:forEach>
-                </div>
-                <div class="col-sm-1"><!--Spacer--></div>
-                <div class="col-sm-6 module">
-                    test
                 </div>
             </div>
             
