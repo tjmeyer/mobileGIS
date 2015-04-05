@@ -25,6 +25,7 @@
                     </div>
                     <div class="errorMessage">
                         <p>${message}</p>
+                        <p>We've been experiencing seemingly random breaks in service with our database provider. If you can't login, or get a blank page upon login, please try again in 5-10 minutes.</p>
                     </div>
                 </div>
                 <div class="col-sm-3"></div>
