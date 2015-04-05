@@ -54,7 +54,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-sm-12" style="text-align: center;">
-                        <a href="DeletePhone?id=${phone.id}" onclick="return confirm('Are you sure you want to delete this phone?')" class="btn btn-lg btn-danger">Delete Phone</a>
+                        <a href="DeletePhone?id=${phone.id}" onclick="return confirm('Are you sure you want to delete this phone?\nAll location history will also be permanently lost.')" class="btn btn-lg btn-danger">Delete Phone</a>
                     </div>
                 </div>
             </form>

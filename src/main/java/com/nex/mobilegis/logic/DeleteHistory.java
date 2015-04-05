@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nex.mobilegis.presentation;
+package com.nex.mobilegis.logic;
 
-import com.nex.mobilegis.logic.Authenticator;
-import com.nex.mobilegis.logic.Phone;
+import com.nex.mobilegis.dataaccess.DBManager;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author M
  */
-@WebServlet(name = "PhoneHistory", urlPatterns = {"/PhoneHistory"})
-public class PhoneHistory extends HttpServlet {
+@WebServlet(name = "DeleteHistory", urlPatterns = {"/DeleteHistory"})
+public class DeleteHistory extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,11 +34,17 @@ public class PhoneHistory extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Phone phone = Authenticator.account.getUser(request.getParameter("user")).getPhone(Integer.parseInt(request.getParameter("phone")));
-        request.setAttribute("phone", phone);
-        request.getRequestDispatcher("phoneHistory.jsp").forward(request, response);
-        
+            throws ServletException, IOException{
+        String id = request.getParameter("phone");
+        String query = "DELETE FROM location WHERE phone_id = "+id;
+        DBManager db;
+        try {
+            db = DBManager.getInstance();
+            db.executeUpdate(query);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DeleteHistory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.getRequestDispatcher("CreateSession").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

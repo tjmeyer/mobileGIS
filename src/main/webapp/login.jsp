@@ -24,8 +24,7 @@
                         <img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/define_location.png" alt="..." width="50%" class="logo"/>
                     </div>
                     <div class="errorMessage">
-                        <p>${message}</p>
-                        <p>We've been experiencing seemingly random breaks in service with our database provider. If you can't login, or get a blank page upon login, please try again in 5-10 minutes.</p>
+                        <h3 class="blink">${message}</h3>
                     </div>
                 </div>
                 <div class="col-sm-3"></div>

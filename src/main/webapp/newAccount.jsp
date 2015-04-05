@@ -23,6 +23,7 @@
                 <div class="col-sm-12">
                     ${message}
                 </div>
+                <h3>Password requirements have been lifted during CS313 testing.</h3>
             </div>
             <div class="row module">
                 <form action="CreateAccount" method="POST">

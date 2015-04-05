@@ -5,6 +5,7 @@
 --%>
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <span style='visibility: hidden;'>/* global google */</span>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,40 +17,33 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <title>Phone History</title>
-        <style>
-      html, body, #map-canvas {
-        height: 80%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaG8QhUPgjjl3QtFlNYCeqiOccI-Xmudw"></script>
     <script>
-    function initialize() {
-        var mapOptions = {
-          zoom: 3,
-          center: new google.maps.LatLng(0, -180),
-          mapTypeId: google.maps.MapTypeId.TERRAIN
-        };
+        function initialize() {
+            var mapOptions = {
+              zoom: 14,
+              center: new google.maps.LatLng(${phone.getRecentLocation().lat}, ${phone.getRecentLocation().lon}),
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
-        var flightPlanCoordinates = [
-        <c:forEach var='location' items='${phone.locations}'>
-            new google.maps.LatLng(${location.lat}, ${location.lon}),
-        </c:forEach>
-        ];
-        var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+            var flightPlanCoordinates = [
+            <c:forEach var='location' items='${phone.locations}'>
+                new google.maps.LatLng(${location.lat}, ${location.lon}),
+            </c:forEach>
+            ];
+            var flightPath = new google.maps.Polyline({
+              path: flightPlanCoordinates,
+              geodesic: true,
+              strokeColor: '#FF0000',
+              strokeOpacity: 1.0,
+              strokeWeight: 2
+            });
 
-        flightPath.setMap(map);
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
+            flightPath.setMap(map);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
     </script>
     </head>
     <body>
@@ -58,11 +52,18 @@
             <hr/>
             <div class="row">
                 <div class="col-xs-12 col-md-12">
-                    <div id="map-canvas"></div>
+                    <div id="map-canvas">
+                        <c:if test="${fn:length(phone.locations) == 0}">
+                            <br/>
+                            <br/>
+                            <h1>No location history to display</h1>
+                            <h1><span class='glyphicon glyphicon-globe'></span></h1>
+                        </c:if>
+                    </div>
                 </div>
             </div>
             <br/>
-            <div class="row module" style="text-align:center;">
+            <div class="row module" style="text-align:center; display: none;">
                 <div class="col-xs-12 col-md-6">
                     <h3>Start Time</h3>
                     <input id="sDate" type=date step=1 min=2014-09-08 onchange="document.getElementById('eDate').min  = document.getElementById('sDate').value; document.getElementById('eDate').value = document.getElementById('sDate').value;"/>
@@ -80,7 +81,7 @@
             <br/>
             <div class='row'>
                 <div class='col-sm-12' style="text-align: center;">
-                    <a href="DeleteHistory?phone=${phone.id}" class="btn btn-danger btn-lg">Delete History</a>
+                    <a href="DeleteHistory?phone=${phone.id}" onclick="return confirm('Are you sure you want to delete this phone\'s history?\nThis cannot be undone.')" class="btn btn-danger btn-lg">Delete History</a>
                 </div>
             </div>
                 <br/>

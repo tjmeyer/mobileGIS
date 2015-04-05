@@ -48,7 +48,8 @@ public class CreateAccount extends HttpServlet {
         String pUsername = "[a-zA-Z0-9]+";
         String pEmail = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        String pPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        String pPassword = "";
+//                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
         
         // save entered values for reuse
         request.setAttribute("firstName", firstName);
@@ -123,7 +124,7 @@ public class CreateAccount extends HttpServlet {
         
         if(!password.matches(pPassword))
         {
-            message += "password must be 8 or more characters, contain at least one digit and one special character<br/>";
+//            message += "password must be 8 or more characters, contain at least one digit and one special character<br/>";
         }
         else
         {
